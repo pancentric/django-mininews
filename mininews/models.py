@@ -3,12 +3,12 @@ from django.core.exceptions import ValidationError
 
 from model_utils.models import StatusModel, TimeStampedModel
 from model_utils import Choices
-from model_utils.managers import PassThroughManager
 
 import datetime
 import decimal
 
 from .managers import ArticleQuerySet
+
 
 class AbstractArticleModel(StatusModel, TimeStampedModel):
     """
@@ -39,7 +39,7 @@ class AbstractArticleModel(StatusModel, TimeStampedModel):
                              null=True, blank=True,
                              help_text='End of publication date of the article. It will not be visible after this date.')
 
-    objects = PassThroughManager.for_queryset_class(ArticleQuerySet)()
+    objects = ArticleQuerySet.as_manager()
 
     class Meta:
         abstract = True
